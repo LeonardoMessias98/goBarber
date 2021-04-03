@@ -24,6 +24,7 @@
     "indent": "off",
     "import/no-unresolved": "off",
     "arrow-parens": "off",
+    "object-curly-newline": "off",
     "react/jsx-props-no-spreading": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "implicit-arrow-linebreak": "off",
