@@ -11,9 +11,16 @@ interface SignInCredentials {
   password: string;
 }
 
+interface SignUpCredentials {
+  name: string;
+  email: string;
+  password: string;
+}
+
 interface AuthContextData {
   user: object;
   signIn(crendentials: SignInCredentials): Promise<void>;
+  signUp(crendentials: SignUpCredentials): Promise<void>;
   signOut(): void;
 }
 interface AuthProviderProps {
@@ -51,6 +58,14 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     setData({ token, user });
   }, []);
 
+  const signUp = useCallback(async ({ name, email, password }) => {
+    await api.post('users', {
+      name,
+      email,
+      password,
+    });
+  }, []);
+
   const signOut = useCallback(() => {
     localStorage.removeItem('@GoBarber:token');
     localStorage.removeItem('@GoBarber:user');
@@ -59,7 +74,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );
